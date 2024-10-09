@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.alert("Welcome To Slim's Store! ")
+        var name;
+        name = window.prompt("Please enter your name", "Your Name");
+        var item;
+        while (true) {
+            item = window.prompt("What would you like to order?");
+            if (item != null && item.trim() != "") {
+                break;
+            } else {
+                alert("Invalid entry. Please enter a valid item.");
+            }
+        }
+
+        var orderNum;
+        while (true) {
+            orderNum = window.prompt("How many would you like to order? (1-99)");
+            if (orderNum >= 1 && orderNum <= 99 && orderNum != NaN) {
+                orderNum = parseInt(orderNum);
+                break;
+            } else {
+                alert("Invalid quantity. Please enter a number between 1 and 99.");
+            }
+        }
+        now = new Date();
+        hour = now.getHours();
+        if(hour <12){
+            document.write("<h1> Good Morning ");
+        }
+        else if(hour <18){
+            document.write("<h1> Good Afternoon ");
+        }
+        else if(hour <24){
+            document.write("<h1> Good Evening ");
+        }
+        orderDate = new Date()
+        orderDate = orderDate.getDate()
+        arrivalDate = new Date()
+        arrivalDate.setDate(orderDate + 7)
+        document.writeln( name + ", Thank You For Ordering From My Store! </h1>");
+        document.writeln("<h3> Your Order of " + orderNum + " " + item + "(s) will arrive on " + arrivalDate + "</h3>")
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
