@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Facts</title>
+    <style>
+        table {
+            width: 50%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: left;
+        }
+        img {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cat Facts</h1>
+    <button id="fetchBtn">Fetch Cat Facts</button>
+
+    <div id="tableContainer"></div>
+
+    <img id="catImage" src="https://t3.ftcdn.net/jpg/02/36/99/22/360_F_236992283_sNOxCVQeFLd5pdqaKGh8DRGMZy7P4XKm.jpg" alt="Cat" width="300" height="200">
+
+    <script>
+        document.getElementById('fetchBtn').addEventListener('click', fetchCatFacts);
+
+        async function fetchCatFacts() {
+            try {
+                const response = await fetch('https://brianobruno.github.io/cats.json');
+                const data = await response.json();
+
+                data.facts.sort((a, b) => a.factId - b.factId);
+
+                let tableHTML = `<table>
+                                    <thead>
+                                        <tr>
+                                            <th>Fact ID</th>
+                                            <th>Fact</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
+
+                data.facts.forEach(fact => {
+                    tableHTML += `
+                        <tr>
+                            <td>${fact.factId}</td>
+                            <td>${fact.text}</td>
+                        </tr>`;
+                });
+
+                tableHTML += `</tbody></table>`;
+
+                document.getElementById('tableContainer').innerHTML = tableHTML;
+
+                document.getElementById('catImage').src = data.catPhoto;
+            } catch (error) {
+                console.error('Error fetching cat facts:', error);
+            }
+        }
+    </script>
+
+</body>
+</html>
