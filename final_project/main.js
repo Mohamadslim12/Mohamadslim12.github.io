@@ -3,6 +3,8 @@ const searchInput = document.getElementById('search-input');
 const languageInput = document.getElementById('language-input');
 const currencyInput = document.getElementById('currency-input');
 let countriesData = [];
+let filteredData = null;
+let visibleCountries = 12;
 
 async function fetchCountries() {
     try {
@@ -27,8 +29,9 @@ async function fetchCountriesByLanguage(language) {
         const sortedCountries = data.sort((a, b) =>
             a.name.common.localeCompare(b.name.common)
         );
-
-        displayCountries(sortedCountries);
+        filteredData = sortedCountries;
+        visibleCountries = 12;
+        displayCountries(filteredData);
     } catch (error) {
         console.error(`Error fetching countries for language:`, error);
         alert(`No countries found for the language.`);
@@ -43,8 +46,9 @@ async function fetchCountriesByCurrency(currency) {
         const sortedCountries = data.sort((a, b) =>
             a.name.common.localeCompare(b.name.common)
         );
-
-        displayCountries(sortedCountries);
+        filteredData = sortedCountries;
+        visibleCountries = 12;
+        displayCountries(filteredData);
     } catch (error) {
         console.error(`Error fetching countries for currency:`, error);
         alert(`No countries found for the currency.`);
@@ -55,11 +59,12 @@ fetchCountries();
 
 function displayCountries(countries) {
     countriesContainer.innerHTML = '';
+    const countriesToDisplay = countries.slice(0, visibleCountries);
     if (countries.length === 0) {
         countriesContainer.innerHTML = `<p class="text-center">No countries found.</p>`;
         return;
     }
-    countries.forEach(country => {
+    countriesToDisplay.forEach(country => {
         const countryCard = `
             <div class="col-md-4">
                 <div class="card mb-3">
@@ -73,14 +78,29 @@ function displayCountries(countries) {
             </div>`;
         countriesContainer.innerHTML += countryCard;
     });
+    const loadMoreButton = document.getElementById('load-more');
+    if (visibleCountries >= countries.length) {
+        loadMoreButton.style.display = 'none';
+    } else {
+        loadMoreButton.style.display = 'block';
+    }
+}
+function loadMoreCountries() {
+    visibleCountries += 12;
+    if (filteredData) {
+        displayCountries(filteredData); 
+    } else {
+        displayCountries(countriesData); 
+    }
 }
 
 function handleSearch() {
     const searchTerm = searchInput.value.toLowerCase();
-    const filteredCountries = countriesData.filter(country =>
+    filteredData = countriesData.filter(country =>
         country.name.common.toLowerCase().includes(searchTerm)
     );
-    displayCountries(filteredCountries);
+    visibleCountries = 12;
+    displayCountries(filteredData);
 }
 
 function handleFetchByLanguage() {
@@ -103,19 +123,19 @@ function handleFetchByCurrency() {
 
 let isAscending = true; 
 function toggleAlphabeticalOrder() {
-    isAscending = !isAscending; 
-
+    isAscending = !isAscending;
+    const dataToSort = filteredData || countriesData;
     if (isAscending) {
-        countriesData.sort((a, b) => {
+        dataToSort.sort((a, b) => {
             return a.name.common.localeCompare(b.name.common);
         });
     } else {
-        countriesData.sort((a, b) => {
+        dataToSort.sort((a, b) => {
             return b.name.common.localeCompare(a.name.common);
         });
     }
-
-    displayCountries(countriesData);
+    visibleCountries = 12;
+    displayCountries(dataToSort);
 }
 function scrollToTop() {
     window.scrollTo({
