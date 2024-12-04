@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Countries API</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .navbar {
+        background: linear-gradient(to right, #007bff, #00c6ff);
+        color: white;
+    }
+
+    .navbar-brand {
+        color: white !important;
+        font-weight: bold;
+    }
+
+    .flag {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .col-md-3 {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .card {
+        border-radius: 8px; 
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #0056b3;
+    }
+
+    .text-center {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">COUNTRIES API</a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Filter by Language</h5>
+                <input type="text" id="language-input" class="form-control mb-3" placeholder="Enter language">
+                <button type="button" class="btn btn-primary" onclick="handleLanguageFilter()">Filter</button>
+                <hr>
+                <h5>Filter by Currency</h5>
+                <input type="text" id="currency-input" class="form-control mb-3" placeholder="Enter Currency Full Name">
+                <button type="button" class="btn btn-primary" onclick="handleCurrencyFilter()">Filter</button>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="text" id="search-input" class="form-control" placeholder="Search by country name" oninput="handleSearch()">
+                    </div>
+                </div>
+                <div class="row" id="countries-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
+
+
