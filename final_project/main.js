@@ -19,6 +19,38 @@ async function fetchCountries() {
     }
 }
 
+async function fetchCountriesByLanguage(language) {
+    try {
+        const response = await fetch(`https://restcountries.com/v3.1/lang/${language}`);
+        const data = await response.json();
+
+        const sortedCountries = data.sort((a, b) =>
+            a.name.common.localeCompare(b.name.common)
+        );
+
+        displayCountries(sortedCountries);
+    } catch (error) {
+        console.error(`Error fetching countries for language:`, error);
+        alert(`No countries found for the language.`);
+    }
+}
+
+async function fetchCountriesByCurrency(currency) {
+    try {
+        const response = await fetch(`https://restcountries.com/v3.1/currency/${currency}`);
+        const data = await response.json();
+
+        const sortedCountries = data.sort((a, b) =>
+            a.name.common.localeCompare(b.name.common)
+        );
+
+        displayCountries(sortedCountries);
+    } catch (error) {
+        console.error(`Error fetching countries for currency:`, error);
+        alert(`No countries found for the currency.`);
+    }
+}
+
 fetchCountries();
 
 function displayCountries(countries) {
@@ -51,30 +83,22 @@ function handleSearch() {
     displayCountries(filteredCountries);
 }
 
-function handleLanguageFilter() {
-    const language = languageInput.value.toLowerCase();
-    if (!language) return;
-
-    const filteredCountries = countriesData.filter(country => {
-        const countryLanguages = Object.values(country.languages || {}).map(lang =>
-            lang.toLowerCase()
-        );
-        return countryLanguages.includes(language);
-    });
-    displayCountries(filteredCountries);
+function handleFetchByLanguage() {
+    const language = languageInput.value.trim().toLowerCase();
+    if (!language) {
+        alert('Please enter a valid language.');
+        return;
+    }
+    fetchCountriesByLanguage(language);
 }
 
-function handleCurrencyFilter() {
-    const currency = currencyInput.value.toLowerCase();
-    if (!currency) return;
-
-    const filteredCountries = countriesData.filter(country => {
-        const countryCurrencies = Object.values(country.currencies || {}).map(curr =>
-            curr.name.toLowerCase()
-        );
-        return countryCurrencies.includes(currency);
-    });
-    displayCountries(filteredCountries);
+function handleFetchByCurrency() {
+    const currency = currencyInput.value.trim().toLowerCase();
+    if (!currency) {
+        alert('Please enter a valid currency.');
+        return;
+    }
+    fetchCountriesByCurrency(currency);
 }
 
 let isAscending = true; 
