@@ -30,6 +30,7 @@ async function fetchCountriesByLanguage(language) {
             a.name.common.localeCompare(b.name.common)
         );
         filteredData = sortedCountries;
+        isAscending = true;
         visibleCountries = 12;
         displayCountries(filteredData);
     } catch (error) {
@@ -47,6 +48,7 @@ async function fetchCountriesByCurrency(currency) {
             a.name.common.localeCompare(b.name.common)
         );
         filteredData = sortedCountries;
+        isAscending = true;
         visibleCountries = 12;
         displayCountries(filteredData);
     } catch (error) {
@@ -99,6 +101,7 @@ function handleSearch() {
     filteredData = countriesData.filter(country =>
         country.name.common.toLowerCase().includes(searchTerm)
     );
+    isAscending = true;
     visibleCountries = 12;
     displayCountries(filteredData);
 }
