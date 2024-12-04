@@ -58,12 +58,31 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
     .text-center {
         margin-top: 20px;
     }
+    #back-to-top-nav {
+    font-size: 14px;
+    color: #007bff;
+    background-color: white;
+    border: 1px solid #007bff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+    #back-to-top-nav:hover {
+    color: white;
+    background-color: #007bff;
+    border-color: #0056b3;
+    }
+
 </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="./home.html">COUNTRIES API</a>
+            <button id="back-to-top-nav" class="btn btn-light btn-sm ms-auto" onclick="scrollToTop()">
+                ↑ Back to Top
+            </button>
         </div>
     </nav>
 
@@ -77,6 +96,8 @@ integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cD
                 <h5>Filter by Currency</h5>
                 <input type="text" id="currency-input" class="form-control mb-3" placeholder="Enter Currency Full Name">
                 <button type="button" class="btn btn-primary" onclick="handleCurrencyFilter()">Filter</button>
+                <hr>
+                <button type="button" class="btn btn-primary" onclick="toggleAlphabeticalOrder()">Flip Alphabetical Order</button>
             </div>
 
             <div class="col-md-9">

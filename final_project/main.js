@@ -13,7 +13,7 @@ async function fetchCountries() {
             a.name.common.localeCompare(b.name.common)
         );
 
-        displayCountries(countriesData.slice(0, 18));
+        displayCountries(countriesData);
     } catch (error) {
         console.error('Error fetching countries:', error);
     }
@@ -75,4 +75,28 @@ function handleCurrencyFilter() {
         return countryCurrencies.includes(currency);
     });
     displayCountries(filteredCountries);
+}
+let isAscending = true; 
+
+
+function toggleAlphabeticalOrder() {
+    isAscending = !isAscending; 
+
+    if (isAscending) {
+        countriesData.sort((a, b) => {
+            return a.name.common.localeCompare(b.name.common);
+        });
+    } else {
+        countriesData.sort((a, b) => {
+            return b.name.common.localeCompare(a.name.common);
+        });
+    }
+
+    displayCountries(countriesData);
+}
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 }
