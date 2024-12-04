@@ -76,9 +76,8 @@ function handleCurrencyFilter() {
     });
     displayCountries(filteredCountries);
 }
+
 let isAscending = true; 
-
-
 function toggleAlphabeticalOrder() {
     isAscending = !isAscending; 
 
